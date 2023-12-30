@@ -8,6 +8,12 @@ android {
     namespace = "ir.mohsenebrahimy.roomorm"
     compileSdk = 34
 
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "ir.mohsenebrahimy.roomorm"
         minSdk = 23

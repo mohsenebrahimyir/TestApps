@@ -1,6 +1,9 @@
 package ir.mohsenebrahimy.roomorm.db
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import ir.mohsenebrahimy.roomorm.db.dao.UserDAO
 import ir.mohsenebrahimy.roomorm.db.model.UserEntity
 
@@ -8,14 +11,28 @@ import ir.mohsenebrahimy.roomorm.db.model.UserEntity
     entities = [UserEntity::class],
     version = DBHandler.DATABASE_VERSION
 )
-abstract class DBHandler {
+abstract class DBHandler : RoomDatabase() {
 
     abstract fun userDao(): UserDAO
 
     companion object {
-        const val DATABASE_NAME = "main_database"
+        private const val DATABASE_NAME = "main_database"
         const val DATABASE_VERSION = 1
 
         const val USER_TABLE = "userTable"
+
+        private var INSTANCE: DBHandler? = null
+        fun getDatabase(context: Context): DBHandler {
+            if (INSTANCE == null)
+                INSTANCE = Room.databaseBuilder(
+                    context,
+                    DBHandler::class.java,
+                    DATABASE_NAME
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+
+            return INSTANCE!!
+        }
     }
 }
