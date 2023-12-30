@@ -43,11 +43,13 @@ class MainActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ users ->
+                    var text = ""
                     users.forEach {
-                        Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+                        text += "${it.toString()}\n\n"
                     }
+                    binding.textView.text = text
                 }) {
-
+                    Toast.makeText(this, "Somethings is wrong!", Toast.LENGTH_SHORT).show()
                 }
 
             disposable.add(dispose)
