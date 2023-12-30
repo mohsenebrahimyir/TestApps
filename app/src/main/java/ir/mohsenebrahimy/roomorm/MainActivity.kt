@@ -14,16 +14,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val disposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val db = DBHandler.getDatabase(this)
-        val disposable = CompositeDisposable()
 
-        binding.button.setOnClickListener{
-            Thread{
+        binding.button.setOnClickListener {
+            Thread {
                 db.userDao().insertUser(
                     UserEntity(
                         name = "Mohsen",
@@ -41,15 +42,20 @@ class MainActivity : AppCompatActivity() {
             val dispose = db.userDao().getUsers
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe({users ->
-                    users.forEach{
+                .subscribe({ users ->
+                    users.forEach {
                         Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
                     }
-                }){
+                }) {
 
                 }
 
             disposable.add(dispose)
         }
+    }
+
+    override fun onDestroy() {
+        disposable.dispose()
+        super.onDestroy()
     }
 }
