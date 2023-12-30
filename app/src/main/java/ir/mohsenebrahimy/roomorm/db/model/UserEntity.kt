@@ -7,7 +7,7 @@ import ir.mohsenebrahimy.roomorm.db.DBHandler
 
 @Entity(tableName = DBHandler.USER_TABLE)
 data class UserEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo val name: String,
     @ColumnInfo val family: String,
     @ColumnInfo val phone: String,
