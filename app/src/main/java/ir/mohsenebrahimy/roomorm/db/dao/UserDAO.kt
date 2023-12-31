@@ -23,7 +23,7 @@ interface UserDAO {
     fun updateUser(vararg users: UserEntity)
 
     @Delete
-    fun deleteUser(vararg uses: UserEntity)
+    fun deleteUser(vararg users: UserEntity)
 
     @Query("DELETE FROM ${DBHandler.USER_TABLE}")
     fun deleteAllUsers()
