@@ -61,4 +61,7 @@ dependencies {
 
     //RXJava
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
+    //Live Data
+    val lifecycleVersion = "2.6.1"
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
 }

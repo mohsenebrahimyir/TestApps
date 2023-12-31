@@ -3,18 +3,20 @@ package ir.mohsenebrahimy.roomorm
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import ir.mohsenebrahimy.roomorm.databinding.ActivityMainBinding
 import ir.mohsenebrahimy.roomorm.db.DBHandler
 import ir.mohsenebrahimy.roomorm.db.model.UserEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    private val disposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,40 +26,39 @@ class MainActivity : AppCompatActivity() {
         val db = DBHandler.getDatabase(this)
 
         binding.button.setOnClickListener {
-            Thread {
-                db.userDao().insertUser(
-                    UserEntity(
-                        name = "Mohsen",
-                        family = "Ebrahimi",
-                        phone = "09118645816",
-                        age = 25
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    db.userDao().insertUser(
+                        UserEntity(
+                            name = "Mohsen",
+                            family = "Ebrahimi",
+                            phone = "09118645816",
+                            age = 25
+                        )
                     )
-                )
-            }.start()
+                }
+            }
 
             Toast.makeText(this, "Create Use", Toast.LENGTH_SHORT).show()
         }
 
         binding.button2.setOnClickListener {
-            val dispose = db.userDao().getUsers
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ users ->
-                    var text = ""
-                    users.forEach {
-                        text += "${it.toString()}\n\n"
+            lifecycleScope.launch {
+                val users = db.userDao().getUsers
+                withContext(Dispatchers.IO) {
+
+                    withContext(Dispatchers.Main) {
+                        users.collect { usersList ->
+                            var text = ""
+                            usersList.forEach {
+                                text += "$it\n\n"
+                            }
+
+                            binding.textView.text = text
+                        }
                     }
-                    binding.textView.text = text
-                }) {
-                    Toast.makeText(this, "Somethings is wrong!", Toast.LENGTH_SHORT).show()
                 }
-
-            disposable.add(dispose)
+            }
         }
-    }
-
-    override fun onDestroy() {
-        disposable.dispose()
-        super.onDestroy()
     }
 }
