@@ -28,14 +28,21 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             lifecycleScope.launch {
                 withContext(Dispatchers.IO) {
-                    db.userDao().insertUser(
-                        UserEntity(
-                            name = "Mohsen",
-                            family = "Ebrahimi",
-                            phone = "09118645816",
-                            age = 25
-                        )
-                    )
+//                    db.userDao().updateUser(
+//                        UserEntity(
+//                            id = 1,
+//                            name = "Reza",
+//                            family = "Ebrahimi",
+//                            phone = "09118645816",
+//                            age = 25
+//                        )
+//                    )
+
+//                    db.userDao().deleteUser(
+//                        UserEntity(2, "", "", "", 0)
+//                    )
+
+                    db.userDao().deleteAllUsers()
                 }
             }
 
