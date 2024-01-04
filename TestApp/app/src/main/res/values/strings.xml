@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">اپلیکیشن آزمایشی</string>
+    <string name="welcome">خوش آمدید</string>
+    <string name="test">آزمایشی</string>
+    <string name="next">بعدی</string>
+    <string name="previous">قبلی</string>
+    <string name="on">روشن</string>
+    <string name="off">خاموش</string>
+    <string name="red_fa">قرمز</string>
+    <string name="blue_fa">آبی</string>
+    <string name="black_fa">مشکی</string>
+    <string name="show">نمایش</string>
+    <string name="test_activity">فعالیت آزمایشی</string>
+    <string name="login">ورود</string>
+    <string name="register">ثبتنام</string>
+    <string name="confirm">confirm</string>
+    <string name="password">pass</string>
+    <string name="username">user</string>
+</resources>
