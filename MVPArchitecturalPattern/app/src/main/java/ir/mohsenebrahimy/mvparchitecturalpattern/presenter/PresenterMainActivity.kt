@@ -10,9 +10,14 @@ class PresenterMainActivity(
 ) : BaseLifecycle {
     override fun onCreate() {
         initData()
+        setOnClick()
     }
 
     private fun initData() {
         view.setText(model.getText())
+    }
+
+    private fun setOnClick() {
+        view.onClick()
     }
 }
