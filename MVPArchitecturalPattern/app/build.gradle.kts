@@ -7,6 +7,11 @@ android {
     namespace = "ir.mohsenebrahimy.mvparchitecturalpattern"
     compileSdk = 34
 
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId = "ir.mohsenebrahimy.mvparchitecturalpattern"
         minSdk = 24

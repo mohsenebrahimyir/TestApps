@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MVP Architectural Pattern</string>
+    <string name="author_name">Mohsen Ebrahimi</string>
 </resources>
