@@ -109,7 +109,9 @@ class MainActivity : ComponentActivity() {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             OutlinedTextField(
                 value = text,
-                onValueChange = { text = it },
+                onValueChange = {
+                    if (it.text.length <= 11) text = it
+                },
                 label = {
                     Text(
                         text = label,
