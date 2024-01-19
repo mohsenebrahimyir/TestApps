@@ -35,15 +35,13 @@ class MainActivity : ComponentActivity() {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Radio("Dark")
+                Radio()
             }
         }
     }
 
     @Composable
-    fun Radio(
-        text: String
-    ) {
+    fun Radio() {
 
 
         val radiosButtons = mutableListOf("Auto", "Dark", "Light")
