@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SettingsPage</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="app_settings">App Settings</string>
+    <string name="setting">Setting</string>
+</resources>
